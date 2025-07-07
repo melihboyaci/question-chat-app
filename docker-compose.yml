@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: question-chat-redis
+    ports:
+      - "6380:6379"  # Different port to avoid conflict
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  question-app:
+    build: .
+    image: question-chat-app:golang-v1.0
+    ports:
+      - "8081:80"    # Different port to avoid conflict with websocket-chat
+      - "444:443"    # Different port to avoid conflict
+    restart: unless-stopped
+    container_name: question-chat-app
+    depends_on:
+      - redis
+    environment:
+      - REDIS_ADDR=redis:6379
+      - APP_NAME=question-chat-app
+    volumes:
+      - ./ssl:/app/ssl:ro
+      - uploads:/app/uploads
+
+volumes:
+  redis_data:
+  uploads:
