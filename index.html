@@ -668,7 +668,7 @@
             <!-- File upload area -->
             <div class="file-upload-area" id="fileUploadArea">
                 <div>📁 Dosya yüklemek için tıklayın veya sürükleyip bırakın</div>
-                <div style="font-size: 12px; margin-top: 4px;">Maksimum 10MB (Resim, PDF, TXT, ZIP)</div>
+                <div style="font-size: 12px; margin-top: 4px;">Maksimum 30MB (Resim, PDF, TXT, ZIP)</div>
                 <div class="upload-progress" id="uploadProgress">
                     <div class="upload-progress-bar" id="uploadProgressBar"></div>
                 </div>
@@ -1230,7 +1230,7 @@
         // Enhanced upload file function with better error handling
         function uploadFile(file) {
             // Enhanced file validation
-            const maxSize = 10 * 1024 * 1024; // 10MB
+            const maxSize = 30 * 1024 * 1024; // 30MB
             const allowedTypes = [
                 'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp',
                 'text/plain', 'application/pdf', 'application/zip', 
