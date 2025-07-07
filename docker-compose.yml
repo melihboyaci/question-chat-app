@@ -14,9 +14,6 @@ services:
   question-app:
     build: .
     image: question-chat-app:golang-v1.0
-    ports:
-      - "8081:80"    # Different port to avoid conflict with websocket-chat
-      - "444:443"    # Different port to avoid conflict
     restart: unless-stopped
     container_name: question-chat-app
     depends_on:
@@ -26,8 +23,11 @@ services:
       - APP_NAME=question-chat-app
     volumes:
       - ./ssl:/app/ssl:ro
-      - uploads:/app/uploads
+      - ./uploads:/app/uploads
 
+volumes:
+  redis_data:
+  uploads:
 volumes:
   redis_data:
   uploads:
