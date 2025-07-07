@@ -490,8 +490,8 @@ func handleFileUpload(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-	// Parse multipart form (max 32MB -> 35MB to handle overhead)
-	err := r.ParseMultipartForm(35 << 20)
+	// Parse multipart form (max 32MB)
+	err := r.ParseMultipartForm(32 << 20)
 	if err != nil {
 		log.Printf("Dosya parse hatası: %v", err)
 		http.Error(w, "File too large", http.StatusBadRequest)
@@ -516,10 +516,10 @@ func handleFileUpload(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Validate file size (max 30MB)
-	if header.Size > 30*1024*1024 {
+	// Validate file size (max 10MB)
+	if header.Size > 10*1024*1024 {
 		log.Printf("Dosya çok büyük: %d bytes", header.Size)
-		http.Error(w, "File size too large (max 30MB)", http.StatusBadRequest)
+		http.Error(w, "File size too large (max 10MB)", http.StatusBadRequest)
 		return
 	}
 
