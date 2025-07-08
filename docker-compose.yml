@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
   redis:
     image: redis:7-alpine
     container_name: question-chat-redis
     ports:
-      - "6380:6379"  # Different port to avoid conflict
+      - "6380:6379" # Different port to avoid conflict
     volumes:
       - redis_data:/data
     restart: unless-stopped
@@ -23,11 +23,8 @@ services:
       - APP_NAME=question-chat-app
     volumes:
       - ./ssl:/app/ssl:ro
-      - ./uploads:/app/uploads
+      - uploads:/app/uploads
 
-volumes:
-  redis_data:
-  uploads:
 volumes:
   redis_data:
   uploads:
