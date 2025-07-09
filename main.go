@@ -105,7 +105,7 @@ func (h *Hub) storeMessage(msg Message) {
 	pipe := h.redis.Pipeline()
 	pipe.LPush(ctx, key, messageJSON)
 	pipe.LTrim(ctx, key, 0, 99)         // Keep only the last 100 messages
-	pipe.Expire(ctx, key, 24*time.Hour) // Messages expire after 24 hours
+	pipe.Expire(ctx, key, 7*24*time.Hour) // Messages expire after 7 days (1 hafta)
 
 	_, err = pipe.Exec(ctx)
 	if err != nil {
